@@ -46,10 +46,10 @@ const wireQuoteEvents = () => {
 ========================= */
 
 const renderTasks = (tasks) => {
-  const taskList = document.querySelector(".task-list");
-  if (!taskList) return;
+  const task_list = document.querySelector(".task-list");
+  if (!task_list) return;
 
-  taskList.innerHTML = "";
+  task_list.innerHTML = "";
 
   tasks.forEach((task) => {
     const li = document.createElement("li");
@@ -66,7 +66,7 @@ const renderTasks = (tasks) => {
 
     li.appendChild(checkbox);
     li.appendChild(label);
-    taskList.appendChild(li);
+    task_list.appendChild(li);
   });
 };
 
@@ -126,9 +126,9 @@ const wireTaskEvents = () => {
 const loadNotes = async () => {
   try {
     const response = await axios.get(`${LOCAL_API}/notes`);
-    const textarea = document.getElementById("notes-text");
-    if (textarea) {
-      textarea.value = response.data.notes;
+    const text_area = document.getElementById("notes-text");
+    if (text_area) {
+      text_area.value = response.data.notes;
     }
   } catch (error) {
     console.error(error);
@@ -136,21 +136,21 @@ const loadNotes = async () => {
 };
 
 const wireNotesEvents = () => {
-  const textarea = document.getElementById("notes-text");
-  const saveButton = document.getElementById("save-notes-btn");
+  const text_area = document.getElementById("notes-text");
+  const saveb = document.getElementById("save-notes-btn");
 
-  if (!textarea || !saveButton) return;
+  if (!text_area || !saveb) return;
 
-  textarea.addEventListener("input", () => {
-    saveButton.disabled = false;
+  text_area.addEventListener("input", () => {
+    saveb.disabled = false;
   });
 
-  saveButton.addEventListener("click", async () => {
+  saveb.addEventListener("click", async () => {
     try {
-      await axios.put(`${LOCAL_API}/notes`, { notes: textarea.value });
-      saveButton.disabled = true;
+      await axios.put(`${LOCAL_API}/notes`, { notes: text_area.value });
+      saveb.disabled = true;
     } catch (error) {
-      console.error(error);
+      console.error(error);;
     }
   });
 };
